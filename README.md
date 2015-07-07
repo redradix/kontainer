@@ -14,7 +14,7 @@ When you want any of the following:
 * Being able to change/mock dependencies for testing purposes
 
 # How it works
-Ideally you will have a single file containing all your module registrations. Probably you'll have one for each environment. Then, whenever you need a module (with all its dependencies nicely inject), you will get it from the container (API below).
+Ideally you will have a single file containing all your module registrations. Probably you'll have one for each environment. Then, whenever you need a module (with all its dependencies nicely injected for you), you will get it from the container (API below).
 
 The container will cache all instantiated modules like standard `require` does, so dependencies all parsed only once and every subsequent use of a register module will return the same instance.
 

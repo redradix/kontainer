@@ -2,6 +2,9 @@
 
 This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments). No external dependencies but it uses `Array.prototype.forEach` so please polyfill as needed.
 
+# Installation
+Just grab the [container.js file](https://github.com/cdelaorden/jscontainer/blob/master/container.js). The rest of this repo is a small test suite and this README. :)
+
 # When to use
 When you want any of the following:
 
@@ -77,22 +80,18 @@ This container works in a very simple way: you **register** modules/services wit
 
 ## Registering modules
 
-* `container.registerModule(name, [depName, depName, ...], implementation)` - Registers a module in the container. *alias: `register`*
-  * `name`- the name of the module, will be used as depedency name in other modules, and for getting/starting/stopping it.
+* `container.registerModule(name, [depName, depName, ...], implementation)` - Registers a module in the container. *Alias: `register`*
+  * `name`- the name of the module, will be used as dependency name in other modules, and for getting/starting/stopping it.
   * `[depName, depName,...]`- this modules dependencies (their names) or an empty Array
-  * `implementation` - this module implementation. If the module has dependencies, this **must be a function** accepting the dependencies in the same order. The container will throw an Error if the number of declared dependencies don't match the factory function arity. If the module has no dependencies, it can be a plain Object.
+  * `implementation` - this module implementation. If the module has dependencies, this **must be a function** accepting the dependencies in the same order. The container will throw an Error if the number of declared dependencies doesn't match the factory function arity. If the module has no dependencies, it can be a plain Object.
 
 ## Obtaining modules
-* `container.getModule(name)` - Retrieves the given module from the container, with all its dependencies injected, if any. *alias: `get`*
+* `container.getModule(name)` - Retrieves the given module from the container, with all its dependencies injected, if any. *Alias: `get`*
 * `container.startModule(name)`- Retrieves the given module from the container, automatically calling the module's `start` function if it exists.
 
 ## Stopping modules
 * `container.stopModule(name)` - Stops the module `name`. It will delete the current saved instance, and call the module's `stop` function if it exists. 
 
-## Start / stop hooks
-If a module definition has a `start` function, it will be called (with no arguments) when the module is first instantiated because of a `startModule` or `startAll` call.
-
-If a module definition has a `stop` function, it will be called once when the module is stopped via `stopModule`or `stopAll`.
 ## Other methods
 * `container.clearModule(name)`- Removes a module from the container. Will throw if the module has already been instantiated.
 * `container.startAll()` - Like calling `container.start` for every registered module. Returns nothing.

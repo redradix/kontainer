@@ -143,8 +143,8 @@ describe('Module Container', function(){
   describe('Starting', function(){
     it('Should allow starting a single module', function(){
       container.registerModule('A', [], moduleA);
-      container.startModule('A');
-      container.getModule('A').start.callCount.should.equal(1);
+      var modA = container.startModule('A');
+      modA.start.callCount.should.equal(1);
     });
 
     it('Should instantiate all registered modules with startAll', function(){
@@ -194,10 +194,38 @@ describe('Module Container', function(){
       modB.stop.callCount.should.equal(1);
 
     });
-
-
   });
 
+  describe('API alias', function(){
+    it('Should allow using register instead of registerModule', function(){
+      container.register('A', [], moduleA);
+      var modA = container.getModule('A');
+      modA.should.be.an.Object;
+    });
+
+    it('Should allow using get instead of getModule', function(){
+      container.register('A', [], moduleA);
+      container.register('B', ['A'], moduleB);
+      var modB = container.get('B');
+      modB.should.be.an.Object;
+    });
+
+    it('Should allow using start instead of startModule', function(){
+      container.register('A', [], moduleA);
+      container.register('B', ['A'], moduleB);
+      var modB = container.start('B');
+      modB.should.be.an.Object;
+    });
+
+    it('Should allow using stop instead of stopModule', function(){
+      container.register('A', [], moduleA);
+      container.register('B', ['A'], moduleB);
+      var modB = container.start('B');
+      modB.should.be.an.Object;
+      container.stop('B');
+      modB.stop.callCount.should.equal(1);
+    });
+  });
 
 
 });//full suite end

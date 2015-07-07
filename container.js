@@ -6,7 +6,7 @@
 * Contains dependencies so we can configure it, pass it around
 * and get services/modules from it
 **/
-var Container = module.exports = {
+var Container = {
 
   modules: {},
 
@@ -146,3 +146,11 @@ var Container = module.exports = {
     console.log('** Container finished **');
   }
 };
+
+//Some alias
+Container.register = Container.registerModule;
+Container.get = Container.getModule;
+Container.start = Container.startModule;
+Container.stop = Container.stopModule;
+
+module.exports = Container;

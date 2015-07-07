@@ -23,8 +23,13 @@ var Container = {
       started: false
     };
     if(typeof(moduleDef) === 'function'){
+      //check factory signature
+      if(moduleDef.length !== dependencies.length){
+        throw new Error('Module' + moduleName + ' factory function arguments don\'t match the passed dependencies');
+      }
       //factory method
       moduleReg.factory = moduleDef;
+
     }
     else {
       //if not a factory, we can't inject deps!
@@ -90,7 +95,7 @@ var Container = {
       throw new Error('Module ' + moduleName + ' is not registered');
     }
     if(mod.started){
-      return;
+      return mod.instance;
     }
     var instance = this.getModule(moduleName);
     if(!instance){

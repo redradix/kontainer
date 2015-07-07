@@ -65,6 +65,12 @@ describe('Module Container', function(){
         .should.throw();
     });
 
+    it('Should throw an error if the factory function doesn\'t accept the same number of dependencies', function(){
+      container.registerModule('A', [], moduleA);
+      container.registerModule.bind(container, 'B', ['A','D','E'], moduleB)
+        .should.throw();
+    });
+
     it('Should allow clearing a module', function(){
       container.registerModule('A', [], moduleA);
       container.clearModule('A');

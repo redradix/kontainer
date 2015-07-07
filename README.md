@@ -2,6 +2,19 @@
 
 This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments). No external dependencies but it uses `Array.prototype.forEach` so please polyfill as needed.
 
+# When to use
+When you want any of the following:
+
+* Stop having lots of `require` calls at top of every file
+* Stop writing relative paths like `../../../lib` and still enjoy a nice folder structure
+* Being able to swap the implementation of one module without touching any of the files using it
+* Being able to change/mock dependencies for testing purposes
+
+# How it works
+Ideally you will have a single file containing all your module registrations. Probably you'll have one for each environment. Then, whenever you need a module (with all its dependencies nicely inject), you will get it from the container (API below).
+
+The container will cache all instantiated modules like standard `require` does, so dependencies all parsed only once and every subsequent use of a register module will return the same instance.
+
 # Example
 
 ```javascript
@@ -12,7 +25,7 @@ module.exports = {
   text: 'Hello world'
 };
 
-//moduleB.js
+//moduleA.js
 //A module that needs the config defined in the previous module
 module.exports = function(config){
   return {
@@ -27,9 +40,9 @@ module.exports = function(config){
   };
 }
 
-//moduleC.js
+//moduleB.js
 //A module that uses moduleB
-module.exports = function(moduleB){
+module.exports = function(moduleA){
   return {
     start: function(){
       console.log('module C started', moduleB.getText());

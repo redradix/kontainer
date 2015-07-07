@@ -1,6 +1,6 @@
 # Simple DI / IoC container
 
-This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments). No external dependencies but it uses `Array.prototype.forEach` so please polyfill as needed.
+This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). No external dependencies but it uses `Array.prototype.forEach` so please polyfill as needed.
 
 # Installation
 Just grab the [container.js file](https://github.com/cdelaorden/jscontainer/blob/master/container.js). The rest of this repo is a small test suite and this README. :)

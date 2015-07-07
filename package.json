@@ -1,0 +1,25 @@
+{
+  "name": "node-simple-container",
+  "version": "1.0.0",
+  "description": "A simple lightweight DI container",
+  "main": "container.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "ioc",
+    "dependency",
+    "injection",
+    "container"
+  ],
+  "author": "Carlos de la Orden",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "should": "^7.0.1",
+    "sinon": "^1.15.4"
+  }
+}

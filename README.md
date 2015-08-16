@@ -19,60 +19,7 @@ Ideally you will have a single file containing all your module registrations. Pr
 The container will cache all instantiated modules like standard `require` does, so dependencies all parsed only once and every subsequent use of a register module will return the same instance.
 
 # Example
-
-```javascript
-//config.js
-//A module with no deps, in this case a plain JS object
-module.exports = {
-  number: 3000,
-  text: 'Hello world'
-};
-
-//moduleA.js
-//A module that needs the config defined in the previous module
-module.exports = function(config){
-  return {
-    getText(): function(){
-      if(config.number > 1000){
-        return config.text;
-      }
-      else {
-        return 'My own text';
-      }
-    }
-  };
-}
-
-//moduleB.js
-//A module that uses moduleB
-module.exports = function(moduleA){
-  return {
-    start: function(){
-      console.log('module C started', moduleB.getText());
-    },
-    printText: function(){
-      console.log(moduleB.getText());
-    }
-  }
-}
-
-//main.js
-var container = require('./container');
-
-//configure container - order is not important
-container.register('config', [], require('./config'));
-container.register('moduleA', ['config'], require('./moduleA'));
-container.register('moduleB', ['moduleA'], require('./moduleB'));
-
-//then use your moduleB, ideally not in the same file :)
-var module = container.start('moduleB');
-module.printText()
-
-/*Console output will be, because of moduleB start() method:
-moduleC started Hello world
-Hello world
-*/
-```
+See the `examples` folder for a basic example and an async one.
 
 # API
 
@@ -87,7 +34,7 @@ This container works in a very simple way: you **register** modules/services wit
 
 ## Obtaining modules
 * `container.getModule(name)` - Retrieves the given module from the container, with all its dependencies injected, if any. *Alias: `get`*
-* `container.startModule(name)`- Retrieves the given module from the container, automatically calling the module's `start` function if it exists.
+* `container.startModule(name[, options])`- Retrieves the given module from the container, automatically calling the module's `start` function if it exists. If your module needs to do some async stuff, make this function return a Promise (a *thenable* to be specific) and pass in `{async: true}` in options.
 
 ## Stopping modules
 * `container.stopModule(name)` - Stops the module `name`. It will delete the current saved instance, and call the module's `stop` function if it exists. 

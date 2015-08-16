@@ -1,6 +1,6 @@
 # Simple DI / IoC container
 
-This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). No external dependencies but it uses `Array.prototype.forEach` so please polyfill as needed.
+This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). Depends on [Q](https://www.npmjs.com/package/q) Promise implementation (only if using async stuff) but it uses `Array.prototype.forEach` so please polyfill as needed.
 
 # Installation
 From npm:

@@ -3,7 +3,10 @@
 This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). No external dependencies but it uses `Array.prototype.forEach` so please polyfill as needed.
 
 # Installation
-Just grab the [container.js file](https://github.com/cdelaorden/jscontainer/blob/master/container.js). The rest of this repo is a small test suite and this README. :)
+From npm:
+`npm install kontainer-di`
+
+If you prefer, just grab the [container.js file](https://github.com/cdelaorden/jscontainer/blob/master/container.js). The rest of this repo is a small test suite, a few examples and this README. :)
 
 # When to use
 When you want any of the following:

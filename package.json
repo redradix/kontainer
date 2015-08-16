@@ -15,7 +15,7 @@
     "injection",
     "container"
   ],
-  "author": "Carlos de la Orden <cdelaorden@gmail.com> (http://www.redradix.com)",
+  "author": "cdelaorden <cdelaorden@gmail.com> (http://www.redradix.com)",
   "license": "ISC",
   "devDependencies": {
     "mocha": "^2.2.5",

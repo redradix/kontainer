@@ -1,5 +1,5 @@
 {
-  "name": "kontainer",
+  "name": "kontainer-di",
   "version": "0.9.0",
   "description": "A simple lightweight Dependency Injection container",
   "main": "container.js",

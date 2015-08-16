@@ -1,4 +1,5 @@
 'use strict';
+var Promise = require('Q');
 
 /**
 * Container
@@ -89,7 +90,8 @@ var Container = {
     this.modules = {};
   },
 
-  startModule: function(moduleName){
+  startModule: function(moduleName, options){
+    var instance, startRet;
     var mod = this.modules[moduleName];
     if(!mod){
       throw new Error('Module ' + moduleName + ' is not registered');
@@ -97,20 +99,29 @@ var Container = {
     if(mod.started){
       return mod.instance;
     }
-    var instance = this.getModule(moduleName);
+    instance = this.getModule(moduleName);
     if(!instance){
       throw new Error('Module ' + moduleName + ' failed to be instantiated');
     }
     if(typeof(instance.start) === 'function'){
       try {
-        instance.start();
+        startRet = instance.start();
       }
       catch(err){
         throw new Error('Module ' + moduleName + ' failed to start: ' + err);
       }
     }
     mod.started = true;
-    return instance;
+    if(options && !!options.async){
+      if(typeof(startRet.then) !== 'function'){
+        throw new Error('Module ' + moduleName + ' start() method does not return a Promise');
+      }
+
+      return startRet.then(function(){
+        return instance;
+      });
+    }
+    else return instance;
   },
 
   stopModule: function(moduleName){

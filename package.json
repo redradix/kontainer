@@ -1,7 +1,7 @@
 {
-  "name": "node-simple-container",
+  "name": "kontainer",
   "version": "1.0.0",
-  "description": "A simple lightweight DI container",
+  "description": "A simple lightweight Dependency Injection container",
   "main": "container.js",
   "directories": {
     "test": "test"

@@ -2,6 +2,7 @@
 
 var should = require('should'),
     sinon = require('sinon'),
+    Promise = require('Q'),
     container = require('../container');
 
 describe('Module Container', function(){
@@ -200,6 +201,60 @@ describe('Module Container', function(){
       modB.stop.callCount.should.equal(1);
 
     });
+  });
+
+  describe('Async', function(){
+    var asyncModule = function(){
+      var _ready = false;
+
+      function start(){
+        return new Promise(function(resolve, reject){
+          console.log('async start');
+          setTimeout(function(){
+            ready = true;
+            resolve();
+          }, 300);
+        });
+      }
+
+
+      return {
+        start: start,
+        foo: function(){
+          return 'Hi there!';
+        }
+      }
+    };
+
+    var asyncModuleWithDep = function(mod){
+      function start(){
+        return new Promise(function(resolve, reject){
+          //do some async stuff
+          setTimeout(function(){
+            resolve();
+          }, 200);
+        });
+      }
+
+      return {
+        start: start,
+        myMethod: function(){
+          return mod.foo();
+        }
+      }
+    };
+
+
+    it('Should allow to start a module returning a promise', function(done){
+      var res;
+      container.register('modA', [], asyncModule);
+      res = container.start('modA', { async: true })
+      .then(function(modA){
+        modA.foo.should.be.a.Function;
+        done();
+      });
+    });
+
   });
 
   describe('API alias', function(){

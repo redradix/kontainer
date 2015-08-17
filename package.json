@@ -1,9 +1,9 @@
 {
   "name": "kontainer-di",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "A simple lightweight Dependency Injection container",
   "main": "container.js",
-  "homepage": "https://github.com/cdelaorden/kontainer",
+  "homepage": "https://github.com/redradix/kontainer",
   "directories": {
     "test": "test",
     "examples": "examples"
@@ -20,7 +20,7 @@
   "author": "cdelaorden <cdelaorden@gmail.com> (http://www.redradix.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cdelaorden/kontainer.git"
+    "url": "https://github.com/redradix/kontainer.git"
   },
   "license": "ISC",
   "devDependencies": {

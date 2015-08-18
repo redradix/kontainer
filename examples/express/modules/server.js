@@ -9,9 +9,7 @@ var ServerFactory = function(config){
   var app = express(),
       server = http.createServer(app);
 
-
   app.use(bodyParser.json());
-
 
   function start(){
     var p = Promise.defer();

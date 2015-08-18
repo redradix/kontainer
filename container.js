@@ -111,17 +111,20 @@ var Container = {
         throw new Error('Module ' + moduleName + ' failed to start: ' + err);
       }
     }
-    mod.started = true;
     if(options && !!options.async){
       if(typeof(startRet.then) !== 'function'){
         throw new Error('Module ' + moduleName + ' start() method does not return a Promise');
       }
 
       return startRet.then(function(){
+        mod.started = true;
         return instance;
       });
     }
-    else return instance;
+    else {
+      mod.started = true;
+      return instance;
+    }
   },
 
   stopModule: function(moduleName){

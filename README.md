@@ -22,7 +22,7 @@ Ideally you will have a single file containing all your module registrations. Pr
 The container will cache all instantiated modules like standard `require` does, so dependencies all parsed only once and every subsequent use of a register module will return the same instance.
 
 # Example
-See the [`examples`](https://github.com/cdelaorden/kontainer/tree/master/examples) folder for a basic example and an async one.
+See the [`examples`](https://github.com/redradix/kontainer/tree/master/examples) folder for a basic example and an async one.
 
 # API
 

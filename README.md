@@ -4,11 +4,14 @@
 
 This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). Depends on [Q](https://www.npmjs.com/package/q) Promise implementation (only if using async stuff) but it uses `Array.prototype.forEach` so please polyfill as needed.
 
+# Rationale
+We wrote a blog post presenting this library and the motivations behind it:
+
+[How to structure node.js applications with dependency injection](http://blog.redradix.com/an-architecture-for-complex-node-js-apps-with-dependency-injection/)
+
 # Installation
 From npm:
 `npm install kontainer-di`
-
-If you prefer, just grab the [container.js file](https://github.com/cdelaorden/jscontainer/blob/master/container.js). The rest of this repo is a small test suite, a few examples and this README. :)
 
 # When to use
 When you want any of the following:
@@ -24,7 +27,7 @@ Ideally you will have a single file containing all your module registrations. Pr
 The container will cache all instantiated modules like standard `require` does, so dependencies all parsed only once and every subsequent use of a register module will return the same instance.
 
 # Example
-See the [`examples`](https://github.com/redradix/kontainer/tree/master/examples) folder for a basic example and an async one.
+See the [`examples`](https://github.com/redradix/kontainer/tree/master/examples) folder for a basic example, an async one and a full Express application using the container.
 
 # API
 

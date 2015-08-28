@@ -1,5 +1,5 @@
 'use strict';
-var Promise = require('Q');
+var Promise = require('q');
 
 /**
 * Container

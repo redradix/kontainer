@@ -2,7 +2,7 @@
 
 var should = require('should'),
     sinon = require('sinon'),
-    Promise = require('Q'),
+    Promise = require('q'),
     container = require('../container');
 
 describe('Module Container', function(){

@@ -10,6 +10,7 @@
   "author": "cdelaorden",
   "license": "GPL-3.0",
   "dependencies": {
+    "bluebird": "^2.9.34",
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "knex": "^0.8.6",

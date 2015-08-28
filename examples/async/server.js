@@ -1,6 +1,6 @@
 'use strict';
 var http = require('http');
-var Promise = require('Q');
+var Promise = require('bluebird');
 
 /**
 
@@ -17,7 +17,7 @@ var ServerFactory = function(config){
 
   function start(){
     return new Promise(function(resolve, reject){
-      server.listen(config.config.serverPort, function(err){
+      server.listen(config.serverPort, function(err){
         if(err){
           reject(err);
         }

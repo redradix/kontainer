@@ -2,7 +2,7 @@
 
 var should = require('should'),
     sinon = require('sinon'),
-    Promise = require('q'),
+    Promise = require('bluebird'),
     container = require('../container');
 
 describe('Module Container', function(){
@@ -209,9 +209,8 @@ describe('Module Container', function(){
 
       function start(){
         return new Promise(function(resolve, reject){
-          console.log('async start');
           setTimeout(function(){
-            ready = true;
+            _ready = true;
             resolve();
           }, 300);
         });
@@ -232,7 +231,7 @@ describe('Module Container', function(){
           //do some async stuff
           setTimeout(function(){
             resolve();
-          }, 200);
+          }, 1);
         });
       }
 

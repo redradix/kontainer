@@ -7,7 +7,7 @@ This is a really simple dependecy injection container for using in Javascript ap
 # Rationale
 We wrote a blog post presenting this library and the motivations behind it:
 
-(How to structure node.js applications with dependency injection)[http://blog.redradix.com/an-architecture-for-complex-node-js-apps-with-dependency-injection/]
+[How to structure node.js applications with dependency injection](http://blog.redradix.com/an-architecture-for-complex-node-js-apps-with-dependency-injection/)
 
 # Installation
 From npm:

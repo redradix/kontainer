@@ -2,7 +2,7 @@
 
 # Simple DI / IoC container
 
-This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). Depends on [Q](https://www.npmjs.com/package/q) Promise implementation (only if using async stuff) but it uses `Array.prototype.forEach` so please polyfill as needed.
+This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). Depends on [bluebird](https://www.npmjs.com/package/bluebird) Promise implementation (only if using async stuff) but it uses `Array.prototype.forEach` so please polyfill as needed.
 
 # Rationale
 We wrote a blog post presenting this library and the motivations behind it:

@@ -12,21 +12,14 @@ var ServerFactory = function(config){
   app.use(bodyParser.json());
 
   function start(){
-    var p = Promise.defer();
-
-    server.listen(config.port, config.url, function(err){
-      if(err){
-        p.reject(err);
-      }
-      else {
+    var listenPromise = Promise.promisify(server.listen, server);
+    return listenPromise(config.port, config.url)
+      .then(function(){
         var host = server.address().address;
         var port = server.address().port;
         console.log('Express is listening on', host + ':' + port);
-        p.resolve();
-      }
-    });
+      });
 
-    return p.promise;
   }
 
   function stop(){

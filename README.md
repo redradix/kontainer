@@ -2,7 +2,7 @@
 
 # Simple DI / IoC container
 
-This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). Depends on [bluebird](https://www.npmjs.com/package/bluebird) Promise implementation (only if using async stuff) but it uses `Array.prototype.forEach` so please polyfill as needed.
+This is a really simple dependecy injection container for using in Javascript applications (both nodejs/iojs and browser environments if using CommonJS modules). It uses `Array.prototype.forEach` so please polyfill as needed on your environment.
 
 # Rationale
 We wrote a blog post presenting this library and the motivations behind it:
@@ -19,7 +19,7 @@ When you want any of the following:
 * Stop having lots of `require` calls at top of every file
 * Stop writing relative paths like `../../../lib` and still enjoy a nice folder structure
 * Being able to swap the implementation of one module without touching any of the files using it
-* Being able to change/mock dependencies for testing purposes
+* Being able to mock dependencies for testing purposes in an easy way
 
 # How it works
 Ideally you will have a single file containing all your module registrations. Probably you'll have one for each environment. Then, whenever you need a module (with all its dependencies nicely injected for you), you will get it from the container (API below).

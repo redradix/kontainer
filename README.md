@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/kontainer.svg)](http://badge.fury.io/js/kontainer)
 [![Build Status](https://travis-ci.org/redradix/kontainer.svg?branch=master)](https://travis-ci.org/redradix/kontainer)
 
 # Simple DI / IoC container

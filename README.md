@@ -28,7 +28,7 @@ Ideally you will have a single file containing all your module registrations. Pr
 The container will cache all instantiated modules like standard `require` does, so dependencies all parsed only once and every subsequent use of a register module will return the same instance.
 
 # Example
-See the [`examples`](https://github.com/redradix/kontainer/tree/master/examples) folder for a basic example, an async one and a full Express application using the container.
+See the [`examples`](https://github.com/redradix/kontainer/tree/master/examples) folder for a basic example in ES5, ES2015, an async one and a full Express application using the container.
 
 # API
 

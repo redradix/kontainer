@@ -87,7 +87,7 @@ describe('Module Container', function(){
 
   describe('Getting instances', function(){
 
-    it('Should return module instances', function(){
+    it('Should return module instances from factory functions', function(){
       var modA, fooRes;
       container.registerModule('A', [], moduleA);
       modA = container.getModule('A');
@@ -96,6 +96,28 @@ describe('Module Container', function(){
       modA.foo.should.be.a.Function;
       fooRes = modA.foo(1);
       fooRes.should.equal(2);
+    });
+
+    it('Should return module instances for classes', function(){
+      var modA, ModA, fooRes;
+      try {
+        ModA = eval("'use strict'; \
+          class ModA { \
+            constructor() { this.name = 'A'; } \
+            foo(bar) { return bar*2; } \
+          }"
+        ); 
+      } catch (e) { }
+      
+      if (ModA) {
+        container.registerModule('A', [], ModA);
+        modA = container.getModule('A');
+        modA.should.be.an.Object;
+        modA.should.have.property('name', 'A');
+        modA.foo.should.be.a.Function;
+        fooRes = modA.foo(1);
+        fooRes.should.equal(2);
+      }
     });
 
     it('Should return module instances with dependencies', function(){
@@ -107,6 +129,36 @@ describe('Module Container', function(){
       modB.foo.should.be.a.Function;
       fooRes = modB.foo();
       fooRes.should.equal(20);
+    });
+
+    it('Should return module instances with dependencies when using classes', function(){
+      var modA, ModA, fooRes;
+      var modB = function() { return "something"; };
+      var modC = function() { return "something else"; };
+      try {
+        ModA = eval("'use strict'; \
+          class ModA { \
+            constructor(modB, modC) { \
+              this.modB = modB; \
+              this.modC = modC \
+            } \
+            foo(bar) { return bar*2; } \
+          }"
+        ); 
+      } catch (e) { }
+      
+      if (ModA) {
+        container.registerModule('B', [], modB);
+        container.registerModule('C', [], modC);
+        container.registerModule('A', ['B', 'C'], ModA);
+        modA = container.getModule('A');
+        modA.should.be.an.Object;
+        modA.modB.should.equal("something");
+        modA.modC.should.equal("something else");
+        modA.foo.should.be.a.Function;
+        fooRes = modA.foo(10);
+        fooRes.should.equal(20);
+      }
     });
 
     it('Should return module instances with nested dependencies', function(){

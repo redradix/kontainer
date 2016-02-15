@@ -50,9 +50,24 @@ var Container = {
     }
     if(!moduleReg.instance){
       var moduleDeps = this.getModuleDeps(moduleReg);
-      moduleReg.instance = moduleReg.factory.apply(null, moduleDeps);
+
+      if (this.isClass(moduleReg.factory)) {
+        moduleDeps.unshift(null);
+        moduleReg.instance = new (Function.prototype.bind.apply(moduleReg.factory, moduleDeps));
+        moduleReg.instance.prototype = moduleReg.factory.prototype;
+      } else {
+        moduleReg.instance = moduleReg.factory.apply(null, moduleDeps);
+      }
+
+      if (!moduleReg.instance) {
+        console.warn('Factory did not instantiate anything for "' + moduleName + '"');
+      }
     }
     return moduleReg.instance;
+  },
+
+  isClass: function(func) {
+    return typeof func === 'function' && /^class\s/.test(func+'');
   },
 
   clearModule: function(moduleName){

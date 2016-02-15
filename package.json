@@ -1,6 +1,6 @@
 {
   "name": "kontainer-di",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "A simple lightweight Dependency Injection container",
   "main": "container.js",
   "homepage": "https://github.com/redradix/kontainer",

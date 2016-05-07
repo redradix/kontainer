@@ -11,6 +11,16 @@ var Container = {
 
   modules: {},
 
+  registerModules: function(modules) {
+    modules = modules || {};
+    var key;
+    for(key in modules) {
+      if(modules.hasOwnProperty(key) && modules[key].impl) {
+        Container.registerModule(key, modules[key].deps || [], modules[key].impl);
+      }
+    }
+  },
+
   /** Registers a module. Each module should return a function
   to be called with all its dependencies in order */
   registerModule: function(moduleName, dependencies, moduleDef){
@@ -186,5 +196,6 @@ Container.register = Container.registerModule;
 Container.get = Container.getModule;
 Container.start = Container.startModule;
 Container.stop = Container.stopModule;
+Container.registerAll = Container.registerModules;
 
 module.exports = Container;

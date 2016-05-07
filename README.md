@@ -41,6 +41,20 @@ This container works in a very simple way: you **register** modules/services wit
   * `[depName, depName,...]`- this modules dependencies (their names) or an empty Array
   * `implementation` - this module implementation. If the module has dependencies, this **must be a function** accepting the dependencies in the same order. The container will throw an Error if the number of declared dependencies doesn't match the factory function arity. If the module has no dependencies, it can be a plain Object.
 
+## Registering several modules
+```javascript
+container.registerModules({
+	'name': { deps: [depName, depName,...], impl: implementation},
+	'otherName': { deps: [depName, depName,...], impl: implementation},
+	.....
+	});
+```
+* Registers a list of modules in the container,  *Alias: `registerAll`*. The parameters is an object with:
+	* `name`- the name of the module, will be used as dependency name in other modules, and for getting/starting/stopping it.
+	* Object with properties:
+  	* `deps` - (optional if the module has no dependencies) this modules dependencies (their names) or an empty Array
+  	* `impl` - this module implementation. If the module has dependencies, this **must be a function** accepting the dependencies in the same order. The container will throw an Error if the number of declared dependencies doesn't match the factory function arity. If the module has no dependencies, it can be a plain Object.
+
 ## Obtaining modules
 * `container.getModule(name)` - Retrieves the given module from the container, with all its dependencies injected, if any. *Alias: `get`*
 * `container.startModule(name[, options])`- Retrieves the given module from the container, automatically calling the module's `start` function if it exists. If your module needs to do some async stuff, make this function return a Promise (a *thenable* to be specific) and pass in `{async: true}` in options.

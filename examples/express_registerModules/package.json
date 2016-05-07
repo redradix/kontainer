@@ -1,0 +1,24 @@
+{
+  "name": "kontainer-di-express-example",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/unit",
+    "start": "node index"
+  },
+  "author": "cdelaorden",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "knex": "^0.8.6",
+    "kontainer-di": "^0.9.5",
+    "mocha": "^2.2.5",
+    "sqlite3": "^3.0.10"
+  },
+  "devDependencies": {
+    "sinon": "^1.15.4"
+  }
+}

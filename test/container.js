@@ -42,7 +42,80 @@ describe('Module Container', function(){
     };
   });
 
-  describe('Registration', function(){
+
+  describe('registerModules function ', function(){
+    it('Should accept module registration', function(){
+      container.registerModules({
+        'A': { deps: [], impl: moduleA},
+        'B': { deps: ['A'], impl: moduleB },
+      });
+    });
+
+    it('Should accept either a factory or an instance', function(){
+      var modFoo, modBar;
+      container.registerModules({
+        'A': { deps: [], impl: { foo: 'bar' } },
+        'B': { deps: ['A'], impl: function(aModule) { return { foo: 'bar' }; } },
+      });
+      modFoo = container.getModule('A');
+      modFoo.should.be.an.Object;
+      modFoo.should.have.property('foo', 'bar');
+
+      modBar = container.getModule('B');
+      modBar.should.be.an.Object;
+      modBar.should.have.property('foo', 'bar');
+    });
+
+    it('Should reject an object module with dependencies', function(){
+      container.register.bind(container, {
+          'A': { deps: ['C'], impl: { foo: 'bar'} }
+        }).should.throw();
+    });
+
+    it('Should throw an error if registering a duplicate module', function(){
+      container.registerModules({
+        'A': { desp: [], impl: moduleA },
+      });
+      container.register.bind(container, { 'A': {impl: moduleA } })
+        .should.throw();
+    });
+
+    it('Should throw an error if registering a duplicate module', function(){
+      container.registerModules({
+        'A': { desp: [], impl: moduleA },
+        'B': { deps: ['A'], impl: moduleB },
+      });
+      container.register.bind(container, { 'B': { deps: ['A'], impl: moduleB } })
+        .should.throw();
+    });
+
+    it('Should throw an error if the factory function doesn\'t accept the same number of dependencies', function(){
+      container.registerModules({ 'A': { desp: [], impl: moduleA } });
+      container.register.bind(container,
+        { 'B': { deps: ['A','D','E'], imple: moduleB } }).should.throw();
+    });
+
+    it('Should allow clearing a module', function(){
+      container.registerModules({
+        'A': { desp: [], impl: moduleA },
+        'B': { deps: ['A'], impl: moduleB },
+      });
+
+      container.clearModule('A');
+      container.clearModule('B');
+
+      container.registerModule('A', [], moduleA);
+      container.registerModule('B', ['A'], moduleB);
+    });
+
+    it('Should throw an error when clearing an instantiated module', function(){
+      container.registerModules({ 'A': { desp: [], impl: moduleA } });
+      container.getModule('A');
+      container.clearModule.bind(container, 'A').should.throw();
+    });
+  });
+
+  describe('registerModule function', function(){
     it('Should accept module registration', function(){
       container.registerModule('A', [], moduleA);
     });
@@ -313,6 +386,17 @@ describe('Module Container', function(){
       container.register('A', [], moduleA);
       var modA = container.getModule('A');
       modA.should.be.an.Object;
+    });
+
+    it('Should allow using registerAll instead of registerModules', function(){
+      container.registerAll({
+        'A': { impl: moduleA },
+        'B': { deps: ['A'], impl: moduleB },
+      });
+      var modA = container.getModule('A');
+      modA.should.be.an.Object;
+      var modB = container.getModule('B');
+      modB.should.be.an.Object;
     });
 
     it('Should allow using get instead of getModule', function(){

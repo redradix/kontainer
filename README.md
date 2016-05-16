@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/kontainer.svg)](http://badge.fury.io/js/kontainer)
+[![npm version](https://badge.fury.io/js/kontainer-di.svg)](http://badge.fury.io/js/kontainer-di)
 [![Build Status](https://travis-ci.org/redradix/kontainer.svg?branch=master)](https://travis-ci.org/redradix/kontainer)
 [![Redradix badge](http://static.redradix.com/redradix-badge.svg)](https://redradix.com/)
 

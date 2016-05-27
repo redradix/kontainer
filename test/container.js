@@ -6,7 +6,7 @@ var should = require('should'),
     container = require('../container');
 
 describe('Module Container', function(){
-  var moduleA, moduleB, moduleC;
+  var moduleA, moduleWithState, moduleProviderA, moduleB, moduleC;
 
   beforeEach(function(){
     container.reset();
@@ -20,6 +20,24 @@ describe('Module Container', function(){
         start: sinon.spy(),
         stop: sinon.spy()
       };
+    };
+    moduleWithState = function () {
+      var count = 0;
+      return Object.freeze({
+        increase: function () {
+          count += 1;
+        },
+        get: function() {
+          return count;
+        }
+      })
+    };
+    moduleProviderA = function () {
+      return Object.freeze({
+        get: function () {
+          return moduleWithState()
+        }
+      });
     };
     moduleB = function(anotherModule){
       var factor = 10;
@@ -76,6 +94,25 @@ describe('Module Container', function(){
       container.registerModule('A', [], moduleA);
       container.clearModule('A');
       container.registerModule('A', [], moduleA);
+    });
+
+    it('Should accept provider registration', function () {
+      var mod, mod2;
+      container.registerProvider('PA', [], moduleProviderA);
+      mod = container.getModule('PA');
+      mod.increase()
+      mod.increase()
+      mod2 = container.getModule('PA');
+      mod2.increase()
+      mod.get().should.equal(2);
+      mod2.get().should.equal(1);
+    });
+
+    it('Should throw error when provider has no get method', function(){
+      var badProvider = function () {};
+      container.registerProvider('PA', [], badProvider);
+      container.get.bind(container, 'PA')
+      .should.throw();
     });
 
     it('Should throw an error when clearing an instantiated module', function(){

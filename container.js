@@ -11,9 +11,13 @@ var Container = {
 
   modules: {},
 
+  registerModule: function(moduleName, dependencies, moduleDef) {
+    this._register(moduleName, dependencies, moduleDef, 'singleton');
+  },
+
   /** Registers a module. Each module should return a function
   to be called with all its dependencies in order */
-  registerModule: function(moduleName, dependencies, moduleDef){
+  _register: function(moduleName, dependencies, moduleDef, moduleType){
     if(this.modules[moduleName] !== undefined){
       throw new Error('Module ' + moduleName + ' is already registered. Use swapModule() instead.');
     }
@@ -21,6 +25,7 @@ var Container = {
       name: moduleName,
       deps: dependencies,
       instance: null,
+      type: moduleType,
       started: false
     };
     if(typeof(moduleDef) === 'function'){

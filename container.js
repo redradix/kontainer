@@ -15,6 +15,10 @@ var Container = {
     this._register(moduleName, dependencies, moduleDef, 'singleton');
   },
 
+  registerProvider: function(moduleName, dependencies, moduleDef) {
+    this._register(moduleName, dependencies, moduleDef, 'provider');
+  },
+
   /** Registers a module. Each module should return a function
   to be called with all its dependencies in order */
   _register: function(moduleName, dependencies, moduleDef, moduleType){
@@ -68,6 +72,14 @@ var Container = {
         console.warn('Factory did not instantiate anything for "' + moduleName + '"');
       }
     }
+
+    if (moduleReg.type === 'provider') {
+      if (!moduleReg.instance || !(typeof moduleReg.instance === 'object') || !moduleReg.instance.hasOwnProperty('get')){
+        throw new Error('Provider ' + moduleName + ' has no get method');
+      }
+      return moduleReg.instance.get();
+    }
+
     return moduleReg.instance;
   },
 

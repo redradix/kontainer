@@ -8,8 +8,12 @@
     "test": "test",
     "examples": "examples"
   },
+  "watch": {
+    "test": "*.js"
+  },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "watch": "npm-watch"
   },
   "keywords": [
     "ioc",
@@ -24,6 +28,7 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "npm-watch": "^0.1.4",
     "mocha": "^2.2.5",
     "should": "^7.0.1",
     "sinon": "^1.15.4"
